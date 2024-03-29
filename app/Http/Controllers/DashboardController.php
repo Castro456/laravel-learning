@@ -11,6 +11,20 @@ class DashboardController extends Controller
 {
     public function manage_users()
     {
-        return view('users.users');
+        $users = [
+            [
+                'name' => 'Sam',
+                'age' => 22
+            ],
+            [
+                'name' => 'Tim',
+                'age' => 25
+            ]
+        ];
+
+        return view(
+            'users.users',
+            ['users_list' => $users] //passing data to the view
+        );
     }
 }
