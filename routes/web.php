@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +28,8 @@ Route::get('/feed', function () {
     return view('rss.feed'); //rss.feed indicates that feed file is inside the rss folder
 });
 
-Route::get('/users', [DashboardController::class, 'manage_users']); //This indicates go to DashboardController and look for 'manage_users' function.
+Route::get('/users', [UsersController::class, 'manage_users']); //This indicates go to DashboardController and look for 'manage_users' function.
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+
+Route::get('/terms', [DashboardController::class, 'terms']);
