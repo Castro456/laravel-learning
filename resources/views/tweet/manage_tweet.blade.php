@@ -9,6 +9,14 @@
                         </a></h5>
                 </div>
             </div>
+            <div>
+                <form action="{{ route('delete.tweet', $content_detail->id) }}" method="post">
+                    @csrf
+                    {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
+                    @method('delete')
+                    <button class="btn btn-danger btn-sm"> X </button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="card-body">

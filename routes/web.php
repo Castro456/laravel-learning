@@ -36,3 +36,6 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 Route::get('/terms', [DashboardController::class, 'terms']);
 
 Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('create.tweet'); // naming routes
+
+Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])->name('delete.tweet'); // passing values in routes
+

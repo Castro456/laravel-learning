@@ -21,7 +21,16 @@ class TwitterController extends Controller
         ]);
 
         // return redirect()->route('dashboard'); //redirecting using route name
-        return redirect('/dashboard')->with('tweet_created', 'Tweet created successfully!');
+        return redirect('/dashboard')->with('tweet', 'Tweet created successfully!');
         //with() is a one time session, once viewed in a page will get deleted automatically
+    }
+
+    public function delete_tweet($id)
+    {
+        $delete_tweet = TwitterCloneModel::where('id', $id)->firstOrFail()->delete();
+        //first - returns first data
+        //firstOrFail - if returned data is empty return 404.
+
+        return redirect('/dashboard')->with('tweet', 'Tweet deleted successfully!');
     }
 }
