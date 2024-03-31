@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TwitterClone;
+use App\Models\TwitterCloneModel;
 use Illuminate\Http\Request;
 
 // create a controller using this command 
@@ -16,7 +16,7 @@ class DashboardController extends Controller
         // Basic testing to confirm that values are inserted into database tables, this is not a proper way to insert values into tbl.
 
         //Calling the model which has the table name
-        $twitter_clone = new TwitterClone([
+        $twitter_clone = new TwitterCloneModel([
             'content' => 'order by descending'
         ]); //If we called like this it will throw an error for security reason so in the calling model add a laravel property called fillable.
 
@@ -27,12 +27,12 @@ class DashboardController extends Controller
         // Un-comment it to store values
         // $twitter_clone->save(); //Inserting values/rows into 'twitter_clone' table
 
-        // dump(TwitterClone::all()); //dump shows data more cleaner
+        // dump(TwitterCloneModel::all()); //dump shows data more cleaner
         return view('dashboard.dashboard', [
             // all() is laravel default function for getting all columns from a tbl.
-            // 'twitter_content_details' => TwitterClone::all() 
+            // 'twitter_content_details' => TwitterCloneModel::all() 
 
-            'twitter_content_details' => TwitterClone::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
+            'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TwitterController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -33,3 +34,5 @@ Route::get('/users', [UsersController::class, 'manage_users']); //This indicates
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
 Route::get('/terms', [DashboardController::class, 'terms']);
+
+Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('create.tweet'); // naming routes
