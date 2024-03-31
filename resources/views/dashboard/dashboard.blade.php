@@ -38,6 +38,7 @@
             </div>
         </div>
         <div class="col-6">
+            @include('tweet.success_message')
             @include('tweet.create_tweet')
             <hr>
             @foreach ($twitter_content_details as $content_detail)

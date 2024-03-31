@@ -17,6 +17,7 @@ class TwitterController extends Controller
         ]);
 
         // return redirect()->route('dashboard'); //redirecting using route name
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('tweet_created', 'Tweet created successfully!');
+        //with() is a one time session, once viewed in a page will get deleted automatically
     }
 }
