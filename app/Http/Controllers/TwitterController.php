@@ -10,8 +10,12 @@ class TwitterController extends Controller
     public function create_tweet()
     {
         // dump(request()->get('create_tweet', null));
-        // From the post request get the value based on name. if name is empty take it as null
 
+        request()->validate([
+            'create_tweet' => 'required|min:5|max:100' //php name is a required, min char of 5 and max char 100
+        ]);
+
+        // From the post request get the value based on name. if name is empty take it as null
         $create_tweet = TwitterCloneModel::create([
             'content' => request()->get('create_tweet', null)
         ]);
