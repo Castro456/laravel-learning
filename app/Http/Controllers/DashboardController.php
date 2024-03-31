@@ -32,7 +32,9 @@ class DashboardController extends Controller
             // all() is laravel default function for getting all columns from a tbl.
             // 'twitter_content_details' => TwitterCloneModel::all() 
 
-            'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
+            // 'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
+
+            'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->paginate(5)
         ]);
     }
 
