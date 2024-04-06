@@ -39,3 +39,5 @@ Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('
 
 Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])->name('delete.tweet'); // passing values in routes
 
+Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('show.tweet');
+

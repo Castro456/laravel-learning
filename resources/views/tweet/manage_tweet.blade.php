@@ -14,7 +14,8 @@
                     @csrf
                     {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
                     @method('delete')
-                    <button class="btn btn-danger btn-sm"> X </button>
+                    <a href="{{ route('show.tweet', $content_detail->id) }}"> View </a>
+                    <button class="ms-1 btn btn-danger btn-sm"> X </button>
                 </form>
             </div>
         </div>
