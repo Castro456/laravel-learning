@@ -16,9 +16,9 @@ class DashboardController extends Controller
         // Basic testing to confirm that values are inserted into database tables, this is not a proper way to insert values into tbl.
 
         //Calling the model which has the table name
-        $twitter_clone = new TwitterCloneModel([
-            'content' => 'order by descending'
-        ]); //If we called like this it will throw an error for security reason so in the calling model add a laravel property called fillable.
+        // $twitter_clone = new TwitterCloneModel([
+        //     'content' => 'order by descending'
+        // ]); //If we called like this it will throw an error for security reason so in the calling model add a laravel property called fillable.
 
         //By doing the above we can eliminate writing these lines:
         // $twitter_clone->content ='first_value'; //content, likes are column names
@@ -28,13 +28,37 @@ class DashboardController extends Controller
         // $twitter_clone->save(); //Inserting values/rows into 'twitter_clone' table
 
         // dump(TwitterCloneModel::all()); //dump shows data more cleaner
+        // return view('dashboard.dashboard', [
+        //     // all() is laravel default function for getting all columns from a tbl.
+        //     // 'twitter_content_details' => TwitterCloneModel::all() 
+
+        //     // 'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
+
+        //     'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->paginate(5)
+        // ]);
+
+
+
+        //Search tweet
+        $result = TwitterCloneModel::orderBy('created_at', 'DESC');
+
+        /**
+         * Check if it has a search_tweet value in get request
+         * where content like %test% - this is the below query stands for
+         * 
+         */
+        if(request()->has('search_tweet')) {
+            /**
+             * where can pass three arguments
+             * 1. column, 2. type of comparison 3. value
+             * type of comparison: '<' , '>', 'like'
+             * 
+             */
+            $result = $result->where('content', 'like', '%'. request()->get('search_tweet') .'%');
+        }
+
         return view('dashboard.dashboard', [
-            // all() is laravel default function for getting all columns from a tbl.
-            // 'twitter_content_details' => TwitterCloneModel::all() 
-
-            // 'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->get() //display the orders in descending based on date of creation.
-
-            'twitter_content_details' => TwitterCloneModel::orderBy('created_at', 'DESC')->paginate(5)
+            'twitter_content_details' => $result->paginate(5)
         ]);
     }
 

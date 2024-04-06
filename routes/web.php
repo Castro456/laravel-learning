@@ -31,7 +31,7 @@ Route::get('/feed', function () {
 
 Route::get('/users', [UsersController::class, 'manage_users']); //This indicates go to DashboardController and look for 'manage_users' function.
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Route::get('/terms', [DashboardController::class, 'terms']);
 
