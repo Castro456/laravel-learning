@@ -41,3 +41,7 @@ Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])-
 
 Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('show.tweet');
 
+Route::get('/tweet/{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit.tweet');
+
+Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->name('update.tweet');
+
