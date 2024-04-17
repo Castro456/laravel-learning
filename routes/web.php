@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TwitterCommentsController;
 use App\Http\Controllers\TwitterController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,8 @@ Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('
 Route::get('/tweet/{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit.tweet');
 
 Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->name('update.tweet');
+
+Route::get('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('show.tweet_comments');
+
+Route::post('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'create_tweet_comments'])->name('create.tweet_comments');
 

@@ -9,10 +9,11 @@ class TwitterController extends Controller
 {
     public function show_tweet(TwitterCloneModel $id)
     {
+        // dd($id->twitter_comments);
         // automatically get all the details where id = id;
         return view('tweet.show_single_tweet',
             [
-                'content_detail' => $id
+                'content_detail' => $id //now this content_detail has all the attributes to TwitterCloneModel. (access to all methods).
             ]
         );
     }
