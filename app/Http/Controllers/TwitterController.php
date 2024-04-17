@@ -22,14 +22,25 @@ class TwitterController extends Controller
     {
         // dump(request()->get('create_tweet', null));
 
-        request()->validate([
-            'create_tweet' => 'required|min:5|max:100' //php name is a required, min char of 5 and max char 100
+        $validated_create_tweet = request()->validate([
+            'content' => 'required|min:5|max:100' //php name is a required, min char of 5 and max char 100
         ]);
 
+        // dump(request()->all()); //'content' => request()->get('create_tweet', null) both are same, which will leave the hacker to enter their data and insert into db.
+        // dd($validated_create_tweet);
+
         // From the post request get the value based on name. if name is empty take it as null
-        $create_tweet = TwitterCloneModel::create([
-            'content' => request()->get('create_tweet', null)
-        ]);
+        // $create_tweet = TwitterCloneModel::create([
+        //     'content' => request()->get('create_tweet', null)
+        // ]);
+
+        /**
+         * Only mass assign the data that is validated, so hackers cant put here data into the requests.
+         * 
+         * Important thing is that name of the html field should be same as the database column name to use below syntax.
+         * 
+         */
+        TwitterCloneModel::create($validated_create_tweet);
 
         // return redirect()->route('dashboard'); //redirecting using route name
         return redirect('/dashboard')->with('success', 'Tweet created successfully!');
@@ -62,12 +73,20 @@ class TwitterController extends Controller
 
     public function update_tweet(TwitterCloneModel $id)
     {
-        request()->validate([
-            'edit_tweet_content' => 'required|min:5|max:100'
+        $validated = request()->validate([
+            'content' => 'required|min:5|max:100'
         ]);
 
-        $id->content = request()->get('edit_tweet_content', '');
-        $id->save();
+        // $id->content = request()->get('edit_tweet_content', '');
+        // $id->save();
+
+        /**
+         * Only mass assign the data that is validated, so hackers cant put here data into the requests.
+         * 
+         * Important thing is that name of the html field should be same as the database column name to use below syntax.
+         * 
+         */
+        $id->update($validated);
 
         return redirect()->route('show.tweet', $id)->with('success', "Tweet updated successfully");
     }

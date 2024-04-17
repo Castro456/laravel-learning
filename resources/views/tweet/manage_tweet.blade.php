@@ -27,8 +27,8 @@
                 @csrf
                 @method('put')
                 <div class="mb-3">
-                    <textarea class="form-control" id="edit_tweet" name="edit_tweet_content" rows="3">{{ $content_detail->content }}</textarea>
-                    @error('edit_tweet')
+                    <textarea class="form-control" id="edit_tweet" name="content" rows="3">{{ $content_detail->content }}</textarea>
+                    @error('content')
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                     @enderror
                 </div>
