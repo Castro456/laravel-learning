@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TwitterCommentsController;
 use App\Http\Controllers\TwitterController;
@@ -49,4 +50,8 @@ Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->na
 Route::get('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('show.tweet_comments');
 
 Route::post('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'create_tweet_comments'])->name('create.tweet_comments');
+
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+
+Route::post('/register', [AuthController::class, 'store']);
 
