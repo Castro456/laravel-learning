@@ -37,19 +37,19 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/terms', [DashboardController::class, 'terms']);
 
-Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('create.tweet'); // naming routes
+Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('create.tweet')->middleware('auth'); // naming routes
 
-Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])->name('delete.tweet'); // passing values in routes
+Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])->name('delete.tweet')->middleware('auth'); // passing values in routes
 
-Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('show.tweet');
+Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('show.tweet')->middleware('auth');
 
-Route::get('/tweet/{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit.tweet');
+Route::get('/tweet/{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit.tweet')->middleware('auth');
 
-Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->name('update.tweet');
+Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->name('update.tweet')->middleware('auth');
 
 Route::get('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('show.tweet_comments');
 
-Route::post('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'create_tweet_comments'])->name('create.tweet_comments');
+Route::post('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'create_tweet_comments'])->name('create.tweet_comments')->middleware('auth');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 

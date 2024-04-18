@@ -13,6 +13,7 @@ class TwitterCommentsController extends Controller
         // dd($tweet_id->id); // dd - dump and die so it won't run the below code.
         // exit();
         $tweet_comment = new TwitterCommentsModel();
+        $tweet_comment->user_id = auth()->user()->id;
         $tweet_comment->tweet_id = $tweet_id->id;
         $tweet_comment->comment = request()->get('create_tweet_comments');
         // the above line can also be written as request()->create_tweet_comments;

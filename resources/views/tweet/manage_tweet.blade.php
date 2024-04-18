@@ -3,21 +3,22 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Emily" alt="{{ $content_detail->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> Mario
-                        </a></h5>
+                    <h5 class="card-title mb-0"><a href="#"> {{ $content_detail->user->name }} </a></h5>
                 </div>
             </div>
             <div>
-                <form action="{{ route('delete.tweet', $content_detail->id) }}" method="post">
-                    @csrf
-                    {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
-                    @method('delete')
-                    <a class="mx-2" href="{{ route('edit.tweet', $content_detail->id) }}"> Edit </a>
-                    <a href="{{ route('show.tweet', $content_detail->id) }}"> View </a>
-                    <button class="ms-1 btn btn-danger btn-sm"> X </button>
-                </form>
+                @if (auth()->id() === $content_detail->user_id)
+                    <form action="{{ route('delete.tweet', $content_detail->id) }}" method="post">
+                        @csrf
+                        {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
+                        @method('delete')
+                        <a class="mx-2" href="{{ route('edit.tweet', $content_detail->id) }}"> Edit </a>
+                        <a href="{{ route('show.tweet', $content_detail->id) }}"> View </a>
+                        <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -51,6 +52,6 @@
                     {{ $content_detail->created_at }} </span>
             </div>
         </div>
-        @include('tweet.tweet_comments')        
+        @include('tweet.tweet_comments')
     </div>
 </div>

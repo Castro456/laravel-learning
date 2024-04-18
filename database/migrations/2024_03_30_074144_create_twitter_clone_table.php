@@ -27,6 +27,8 @@ return new class extends Migration
     {
         Schema::create('twitter_clone', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned()->index()->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
             $table->string('content')->nullable(false);
             $table->unsignedInteger('likes')->nullable(false)->default(0);
             $table->timestamps();

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('twitter_comments', function (Blueprint $table) {
             $table->id();
+
+            $table->bigInteger('user_id')->unsigned()->index()->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
+
             // $table->foreignId('twitter_clone_id')->constrained()->cascadeOnDelete();
             $table->bigInteger('tweet_id')->unsigned()->index()->nullable(false);
             $table->foreign('tweet_id')->references('id')->on('twitter_clone')->constrained()->cascadeOnDelete();

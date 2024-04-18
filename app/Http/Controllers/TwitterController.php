@@ -26,6 +26,8 @@ class TwitterController extends Controller
             'content' => 'required|min:5|max:100' //php name is a required, min char of 5 and max char 100
         ]);
 
+        $validated_create_tweet['user_id'] = auth()->id(); // auth()->user()->id also does the same. auth is a default fn, here we are getting logged in current user id.
+
         // dump(request()->all()); //'content' => request()->get('create_tweet', null) both are same, which will leave the hacker to enter their data and insert into db.
         // dd($validated_create_tweet);
 
@@ -49,6 +51,10 @@ class TwitterController extends Controller
 
     public function delete_tweet(TwitterCloneModel $id)
     {
+        if(auth()->id() !== $id->user_id) {
+            abort(404);
+        }
+
         $id->delete(); //laravel will automatically know $id is a primary key for a table. $id should be same as in the route.
 
         // $delete_tweet = TwitterCloneModel::where('id', $id)->firstOrFail()->delete();
@@ -60,6 +66,10 @@ class TwitterController extends Controller
 
     public function edit_tweet(TwitterCloneModel $id)
     {
+        if (auth()->id() !== $id->user_id) {
+            abort(404);
+        }
+
         $editing = true;
 
         return view(
@@ -73,6 +83,10 @@ class TwitterController extends Controller
 
     public function update_tweet(TwitterCloneModel $id)
     {
+        if (auth()->id() !== $id->user_id) {
+            abort(404);
+        }
+        
         $validated = request()->validate([
             'content' => 'required|min:5|max:100'
         ]);

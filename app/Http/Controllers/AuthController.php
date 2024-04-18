@@ -44,7 +44,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if(auth()->attempt($validate)) {
+        if(auth()->attempt($validate)) { //auth() is laravel built-in fn. It will line will automatically checks the db using provided creds and authenticate the user.
             request()->session()->regenerate();
 
             return redirect()->route('dashboard')->with('success', 'Logged in successfully');
@@ -60,7 +60,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        request()->session()->invalidate();
+        request()->session()->invalidate();//clear sessions
         request()->session()->regenerateToken();
 
         return redirect()->route('dashboard')->with('success', 'Logged out successfully');
