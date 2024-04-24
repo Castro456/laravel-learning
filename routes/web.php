@@ -37,28 +37,19 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/terms', [DashboardController::class, 'terms']);
 
-Route::post('/create-tweet', [TwitterController::class, 'create_tweet'])->name('create.tweet')->middleware('auth'); // naming routes
+Route::group(['prefix' => 'tweet/', 'as' => 'tweet.'], function () { //'as' - prefix for route name
+    Route::post('create', [TwitterController::class, 'create_tweet'])->name('create')->middleware('auth'); // naming routes
 
-Route::delete('/delete-tweet/{id}', [TwitterController::class, 'delete_tweet'])->name('delete.tweet')->middleware('auth'); // passing values in routes
+    Route::delete('delete/{id}', [TwitterController::class, 'delete_tweet'])->name('delete')->middleware('auth'); // passing values in routes
 
-Route::get('/show-tweet/{id}', [TwitterController::class, 'show_tweet'])->name('show.tweet')->middleware('auth');
+    Route::get('{id}', [TwitterController::class, 'show_tweet'])->name('show')->middleware('auth');
 
-Route::get('/tweet/{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit.tweet')->middleware('auth');
+    Route::get('{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit')->middleware('auth');
 
-Route::put('/update-tweet/{id}', [TwitterController::class, 'update_tweet'])->name('update.tweet')->middleware('auth');
+    Route::put('update/{id}', [TwitterController::class, 'update_tweet'])->name('update')->middleware('auth');
 
-Route::get('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('show.tweet_comments');
+    Route::get('{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('comments.show')->withoutMiddleware(['auth']); //withoutMiddleware means this route alone doesn't have auth middleware mentioned.
 
-Route::post('/tweet/{tweet_id}/comments', [TwitterCommentsController::class, 'create_tweet_comments'])->name('create.tweet_comments')->middleware('auth');
-
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-
-Route::post('/register', [AuthController::class, 'store']);
-
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-
-Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+    Route::post('{tweet_id}/comments/store', [TwitterCommentsController::class, 'create_tweet_comments'])->name('comments.store')->middleware('auth');
+});
 

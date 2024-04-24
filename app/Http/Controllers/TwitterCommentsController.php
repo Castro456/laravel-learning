@@ -19,6 +19,6 @@ class TwitterCommentsController extends Controller
         // the above line can also be written as request()->create_tweet_comments;
         $tweet_comment->save();
 
-        return redirect()->route('show.tweet', $tweet_id)->with('success', "Comment posted successfully");
+        return redirect()->route('tweet.show', $tweet_id)->with('success', "Comment posted successfully");
     }
 }

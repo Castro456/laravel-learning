@@ -3,9 +3,9 @@
     <div class="row">
         {{-- Types of routing --}}
 
-        {{-- <form action="/create-tweet" method="post"> --}}
-        {{-- <form action={{ url('/create-tweet') }} method="post"> --}}
-        <form action={{ route('create.tweet') }} method="post">
+        {{-- <form action="/tweet/create" method="post"> --}}
+        {{-- <form action={{ url('/tweet/create') }} method="post"> --}}
+        <form action={{ route('tweet.create') }} method="post">
             @csrf
             {{-- Without this it will throw 'Page expired' which is good againist csrf attack. This @csrf will create a token --}}
             <div class="mb-3">

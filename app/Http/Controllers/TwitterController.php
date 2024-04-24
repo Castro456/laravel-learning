@@ -11,7 +11,8 @@ class TwitterController extends Controller
     {
         // dd($id->twitter_comments);
         // automatically get all the details where id = id;
-        return view('tweet.show_single_tweet',
+        return view(
+            'tweet.show_single_tweet',
             [
                 'content_detail' => $id //now this content_detail has all the attributes to TwitterCloneModel. (access to all methods).
             ]
@@ -51,7 +52,7 @@ class TwitterController extends Controller
 
     public function delete_tweet(TwitterCloneModel $id)
     {
-        if(auth()->id() !== $id->user_id) {
+        if (auth()->id() !== $id->user_id) {
             abort(404);
         }
 
@@ -86,7 +87,7 @@ class TwitterController extends Controller
         if (auth()->id() !== $id->user_id) {
             abort(404);
         }
-        
+
         $validated = request()->validate([
             'content' => 'required|min:5|max:100'
         ]);
@@ -102,6 +103,6 @@ class TwitterController extends Controller
          */
         $id->update($validated);
 
-        return redirect()->route('show.tweet', $id)->with('success', "Tweet updated successfully");
+        return redirect()->route('tweet.show', $id)->with('success', "Tweet updated successfully");
     }
 }

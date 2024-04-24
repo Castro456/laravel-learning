@@ -10,12 +10,12 @@
             </div>
             <div>
                 @if (auth()->id() === $content_detail->user_id)
-                    <form action="{{ route('delete.tweet', $content_detail->id) }}" method="post">
+                    <form action="{{ route('tweet.delete', $content_detail->id) }}" method="post">
                         @csrf
                         {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
                         @method('delete')
-                        <a class="mx-2" href="{{ route('edit.tweet', $content_detail->id) }}"> Edit </a>
-                        <a href="{{ route('show.tweet', $content_detail->id) }}"> View </a>
+                        <a class="mx-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
+                        <a href="{{ route('tweet.show', $content_detail->id) }}"> View </a>
                         <button class="ms-1 btn btn-danger btn-sm"> X </button>
                     </form>
                 @endif
@@ -24,7 +24,7 @@
     </div>
     <div class="card-body">
         @if ($editing ?? false)
-            <form action={{ route('update.tweet', $content_detail->id) }} method="post">
+            <form action={{ route('tweet.update', $content_detail->id) }} method="post">
                 @csrf
                 @method('put')
                 <div class="mb-3">
