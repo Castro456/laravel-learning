@@ -37,19 +37,19 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/terms', [DashboardController::class, 'terms']);
 
-Route::group(['prefix' => 'tweet/', 'as' => 'tweet.'], function () { //'as' - prefix for route name
-    Route::post('create', [TwitterController::class, 'create_tweet'])->name('create')->middleware('auth'); // naming routes
+Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], function () { //'as' - prefix for route name
+    Route::post('create', [TwitterController::class, 'create_tweet'])->name('create'); // naming routes
 
-    Route::delete('delete/{id}', [TwitterController::class, 'delete_tweet'])->name('delete')->middleware('auth'); // passing values in routes
+    Route::delete('delete/{id}', [TwitterController::class, 'delete_tweet'])->name('delete'); // passing values in routes
 
-    Route::get('{id}', [TwitterController::class, 'show_tweet'])->name('show')->middleware('auth');
+    Route::get('{id}', [TwitterController::class, 'show_tweet'])->name('show');
 
-    Route::get('{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit')->middleware('auth');
+    Route::get('{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit');
 
-    Route::put('update/{id}', [TwitterController::class, 'update_tweet'])->name('update')->middleware('auth');
+    Route::put('update/{id}', [TwitterController::class, 'update_tweet'])->name('update');
 
     Route::get('{tweet_id}/comments', [TwitterCommentsController::class, 'tweet_comments'])->name('comments.show')->withoutMiddleware(['auth']); //withoutMiddleware means this route alone doesn't have auth middleware mentioned.
 
-    Route::post('{tweet_id}/comments/store', [TwitterCommentsController::class, 'create_tweet_comments'])->name('comments.store')->middleware('auth');
+    Route::post('{tweet_id}/comments/store', [TwitterCommentsController::class, 'create_tweet_comments'])->name('comments.store');
 });
 
