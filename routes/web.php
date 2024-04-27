@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TwitterCommentsController;
 use App\Http\Controllers\TwitterController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -31,7 +31,7 @@ Route::get('/feed', function () {
     return view('rss.feed'); //rss.feed indicates that feed file is inside the rss folder
 });
 
-Route::get('/users', [UsersController::class, 'manage_users']); //This indicates go to DashboardController and look for 'manage_users' function.
+// Route::get('/users', [UsersController::class, 'manage_users']); //This indicates go to DashboardController and look for 'manage_users' function.
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -52,4 +52,15 @@ Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], f
 
     Route::post('{tweet_id}/comments/store', [TwitterCommentsController::class, 'create_tweet_comments'])->name('comments.store');
 });
+
+/**
+ * Resource route
+ * 
+ * To implement resource route we should use the same syntax format like laravel documentation used
+ * 
+ * only()- function will create only the routes for the mentioned method names
+ * except() - function will wont include route for the mention method names
+ *  
+ */
+Route::resource('profile', ProfileController::class)->only('show', 'edit', 'update')->middleware('auth');
 

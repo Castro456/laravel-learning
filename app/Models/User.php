@@ -46,6 +46,12 @@ class User extends Authenticatable
 
     public function tweets()
     {
-        return $this->hasMany(TwitterCloneModel::class, 'user_id', 'id');
+        //latest() - function will work same as order by 'DESC'
+        return $this->hasMany(TwitterCloneModel::class, 'user_id', 'id')->latest();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(TwitterCloneModel::class, 'user_id', 'id')->latest();
     }
 }
