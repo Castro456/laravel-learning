@@ -59,4 +59,10 @@ class ProfileController extends Controller
         return view('users.profile.profile_update', compact('profile'));
     }
 
+
+    public function my_account() {
+        //auth()->user() will be worked in using a model
+        return $this->show(auth()->user());
+    }
+
 }

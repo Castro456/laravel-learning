@@ -64,3 +64,4 @@ Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], f
  */
 Route::resource('profile', ProfileController::class)->only('show', 'edit', 'update')->middleware('auth');
 
+Route::get('my-profile', [ProfileController::class, 'my_account'])->middleware('auth')->name('my-profile');

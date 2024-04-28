@@ -5,7 +5,16 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
                     src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Emily" alt="{{ $content_detail->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> {{ $content_detail->user->name }} </a></h5>
+                    {{--
+                        If logged in user clicked their name from the tweet they post. The route should be taken to their account and the name of the routes should be 'my-profile' not 'profile/{}'
+                     --}}
+                    @if (auth()->id() !== $content_detail->user->id)
+                        <h5 class="card-title mb-0"><a href="{{ route('profile.show', $content_detail->user->id) }}">
+                                {{ $content_detail->user->name }} </a></h5>
+                    @else
+                        <h5 class="card-title mb-0"><a href="{{ route('my-profile') }}">
+                                {{ $content_detail->user->name }} </a></h5>
+                    @endif
                 </div>
             </div>
             <div>
