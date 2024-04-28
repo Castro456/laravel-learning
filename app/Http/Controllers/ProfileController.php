@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -45,10 +45,15 @@ class ProfileController extends Controller
      */
     public function edit(User $profile)
     {
-        $profile_editing = true; //Allowing to edit in the same show page
-        $twitter_content_details = $profile->tweets()->paginate(5);
-
-        return view('users.profile.profile_edit', compact('profile', 'profile_editing', 'twitter_content_details'));
+        if(auth()->id() === $profile->id) {
+            $profile_editing = true; //Allowing to edit in the same show page
+            $twitter_content_details = $profile->tweets()->paginate(5);
+    
+            return view('users.profile.profile_edit', compact('profile', 'profile_editing', 'twitter_content_details'));
+        }
+        else {
+            abort(404);
+        }
     }
 
     /**
@@ -56,7 +61,39 @@ class ProfileController extends Controller
      */
     public function update(User $profile)
     {
-        return view('users.profile.profile_update', compact('profile'));
+        $validated = request()->validate([
+            'name' => 'required|min:5|max:40',
+            'bio' => 'nullable|min:1|max:255',
+            'image' => 'image' //allow's all image formats
+        ]);
+
+        // dd($validated);
+
+        if(request('image')) { //same as request()->has('image')
+            $image_path = request()->file('image')->store('profile', 'public'); //laravel call it as disk, what this line means is use public disk in filesystems.php to store the uploaded file. storage/profile
+
+            //We are doing the following lines because we need to store the user uploaded file in the permanent folder.
+            $validated['image'] = $image_path;
+
+            /**
+             * ---------------------- Important -------------------
+             * 
+             * Laravel won't allow the users to access the storage folder directly it allows only the public folder to access
+             * 
+             * So need to create a link for the storage file using the following command
+             * 
+             * $ php artisan storage:link
+             * 
+             * Only after that we can store the files in the storage folder
+             * 
+             */
+            //Clear the previous uploaded image from the storage. But need to improve this code.
+            Storage::disk('public')->delete($profile->image);
+        }
+
+        $profile->update($validated);
+
+        return redirect()->route('my-profile');
     }
 
 

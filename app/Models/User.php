@@ -56,4 +56,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(TwitterCloneModel::class, 'user_id', 'id')->latest();
     }
+
+    public function getImageURL()
+    {
+        // If the image is empty for the user in db, then just pass the link
+        if($this->image) {
+            return url('storage/'. $this->image); //Need to use the storage/ prefix in-order access the stored file.
+        }
+        else {
+            return "https://api.dicebear.com/6.x/fun-emoji/svg?seed={$this->name}";
+        }
+    }
 }

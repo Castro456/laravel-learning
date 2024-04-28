@@ -3,7 +3,7 @@
          <div class="d-flex align-items-center justify-content-between">
              <div class="d-flex align-items-center">
                  <img style="width:150px" class="me-3 avatar-sm rounded-circle"
-                     src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="{{ $profile->name }}">
+                     src="{{ $profile->getImageURL() }}" alt="{{ $profile->name }}">
                  <div>
                      <h3 class="card-title mb-0"><a href="#"> {{ $profile->name }}
                          </a></h3>
@@ -22,9 +22,7 @@
              <h5 class="fs-5"> Bio : </h5>
              <p class="fs-6 fw-light">
              <p class="fs-6 fw-light">
-                 This book is a treatise on the theory of ethics, very popular during the
-                 Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
-                 from a line in section 1.10.32.
+                 {{ $profile->bio }}
              </p>
              </p>
              <div class="d-flex justify-content-start">

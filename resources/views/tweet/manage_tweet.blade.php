@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Emily" alt="{{ $content_detail->user->name }}">
+                    src="{{ $content_detail->user->getImageURL() }}" alt="{{ $content_detail->user->name }}">
                 <div>
                     {{--
                         If logged in user clicked their name from the tweet they post. The route should be taken to their account and the name of the routes should be 'my-profile' not 'profile/{}'
