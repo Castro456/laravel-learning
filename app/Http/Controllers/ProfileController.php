@@ -48,7 +48,7 @@ class ProfileController extends Controller
         $profile_editing = true; //Allowing to edit in the same show page
         $twitter_content_details = $profile->tweets()->paginate(5);
 
-        return view('users.profile.profile_show', compact('profile', 'profile_editing', 'twitter_content_details'));
+        return view('users.profile.profile_edit', compact('profile', 'profile_editing', 'twitter_content_details'));
     }
 
     /**
@@ -60,7 +60,8 @@ class ProfileController extends Controller
     }
 
 
-    public function my_account() {
+    public function my_account() 
+    {
         //auth()->user() will be worked in using a model
         return $this->show(auth()->user());
     }
