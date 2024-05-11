@@ -29,7 +29,7 @@ class WelcomeEmail extends Mailable
      * Get the message envelope.
      * Subject - title
      */
-    public function envelope(): Envelope
+    public function envelope(): Envelope //checkout this reference class
     {
         return new Envelope(
             subject: 'Welcome to Twitter Clone', //can add from,to,cc.bcc etc.
@@ -39,12 +39,12 @@ class WelcomeEmail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function content(): Content //checkout this reference class
     {
         return new Content(
             view: 'email-template.WelcomeEmail',
             with: [
-                'user' => $this->user
+                'user' => $this->user //We need to show the user name in the email content, so we are sending user details attribute to the email template view page.
             ]
         );
     }
