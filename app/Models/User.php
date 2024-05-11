@@ -57,6 +57,21 @@ class User extends Authenticatable
         return $this->hasMany(TwitterCloneModel::class, 'user_id', 'id')->latest();
     }
 
+    public function following() //People who we are following
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id')->withTimestamps(); //Many to many
+    }
+
+    public function followers() //People who are following us
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id')->withTimestamps(); //Many to many
+    }
+
+    public function follows(User $user) //Check if we are following this user
+    {
+        return $this->following()->where('user_id', $user->id)->exists();
+    }
+
     public function getImageURL()
     {
         // If the image is empty for the user in db, then just pass the link

@@ -52,13 +52,6 @@
                              {{-- DB Relationship --}}
                          </span> {{ $profile->comments()->count() }} </a>
                  </div>
-                 @auth
-                     @if (Auth::id() !== $profile->id)
-                         <div class="mt-3">
-                             <button class="btn btn-primary btn-sm"> Follow </button>
-                         </div>
-                     @endif
-                 @endauth
              </div>
          </form>
      </div>

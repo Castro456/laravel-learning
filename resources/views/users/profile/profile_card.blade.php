@@ -38,7 +38,18 @@
              @auth
                  @if (Auth::id() !== $profile->id)
                      <div class="mt-3">
-                         <button class="btn btn-primary btn-sm"> Follow </button>
+                        {{-- If logged in user follows a user show un-follow button or else show follow button --}}
+                        @if (Auth::user()->follows($profile))
+                            <form action=" {{ route('users.un-follow', $profile->id) }} " method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm"> UnFollow </button>
+                            </form>
+                        @else
+                            <form action=" {{ route('users.follow', $profile->id) }} " method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm"> Follow </button>
+                            </form>
+                        @endif
                      </div>
                  @endif
              @endauth

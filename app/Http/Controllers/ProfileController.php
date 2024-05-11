@@ -88,12 +88,12 @@ class ProfileController extends Controller
              * 
              */
             //Clear the previous uploaded image from the storage. But need to improve this code.
-            Storage::disk('public')->delete($profile->image);
+            Storage::disk('public')->delete($profile->image ?? '');
         }
 
         $profile->update($validated);
 
-        return redirect()->route('my-profile');
+        return redirect()->route('my-profile')->with('success', "Your profile updated successfully");;
     }
 
 

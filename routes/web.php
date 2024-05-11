@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TwitterCommentsController;
 use App\Http\Controllers\TwitterController;
@@ -65,3 +66,7 @@ Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], f
 Route::resource('profile', ProfileController::class)->only('show', 'edit', 'update')->middleware('auth');
 
 Route::get('my-profile', [ProfileController::class, 'my_account'])->middleware('auth')->name('my-profile');
+
+Route::post('users/{user_id}/follow', [FollowerController::class, 'follow'])->middleware('auth')->name('users.follow');
+
+Route::post('users/{user_id}/un-follow', [FollowerController::class, 'un_follow'])->middleware('auth')->name('users.un-follow');
