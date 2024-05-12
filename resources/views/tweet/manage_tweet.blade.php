@@ -18,9 +18,9 @@
                 </div>
             </div>
             <div class="d-flex">
-                <a href="{{ route('tweet.show', $content_detail->id) }}" class="mt-2"> View </a>
+                <a href="{{ route('tweet.show', $content_detail->id) }}" class=""> View </a>
                 @if (auth()->id() === $content_detail->user_id)
-                    <a class="mx-2 mt-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
+                    <a class="mx-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
                     <form action="{{ route('tweet.delete', $content_detail->id) }}" method="post">
                         @csrf
                         {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
