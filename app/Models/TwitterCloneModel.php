@@ -37,4 +37,9 @@ class TwitterCloneModel extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'twitter_clone_likes', 'tweet_id', 'user_id')->withTimestamps();
+    }
 }

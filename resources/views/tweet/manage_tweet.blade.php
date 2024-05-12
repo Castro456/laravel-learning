@@ -17,15 +17,15 @@
                     @endif
                 </div>
             </div>
-            <div>
+            <div class="d-flex">
+                <a href="{{ route('tweet.show', $content_detail->id) }}" class="mt-2"> View </a>
                 @if (auth()->id() === $content_detail->user_id)
+                    <a class="mx-2 mt-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
                     <form action="{{ route('tweet.delete', $content_detail->id) }}" method="post">
                         @csrf
                         {{-- On web request we can do only get & post so laravel has a spoofing method, but for best practices use 'post' --}}
                         @method('delete')
-                        <a class="mx-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
-                        <a href="{{ route('tweet.show', $content_detail->id) }}"> View </a>
-                        <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                        <button class="ms-1 btn btn-danger btn-sm mb-2"> X </button>
                     </form>
                 @endif
             </div>
@@ -52,10 +52,7 @@
             </p>
         @endif
         <div class="d-flex justify-content-between">
-            <div>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{ $content_detail->likes }} </a>
-            </div>
+            @include('tweet.like_tweet')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
                     {{ $content_detail->created_at }} </span>

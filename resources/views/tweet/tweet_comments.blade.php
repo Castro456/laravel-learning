@@ -10,7 +10,7 @@
     </form>
 
     <hr>
-    @foreach ($content_detail->twitter_comments as $tweet_comment)
+    @forelse ($content_detail->twitter_comments as $tweet_comment)
         <div class="d-flex align-items-start">
             <img style="width:35px" class="me-2 avatar-sm rounded-circle"
                 src="{{ $content_detail->user->getImageURL() }}" alt="{{ $content_detail->user->name }}">
@@ -25,5 +25,7 @@
                 </p>
             </div>
         </div>
-    @endforeach
+    @empty
+        <div class="p text-center mt-4">No comments found</div>    
+    @endforelse
 </div>

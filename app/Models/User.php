@@ -72,6 +72,16 @@ class User extends Authenticatable
         return $this->following()->where('user_id', $user->id)->exists();
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(TwitterCloneModel::class, 'twitter_clone_likes', 'user_id', 'tweet_id')->withTimestamps();
+    }
+
+    public function likesTweet(TwitterCloneModel $tweet) //Check if we already like the post
+    {
+        return $this->likes()->where('tweet_id', $tweet->id)->exists();
+    }
+
     public function getImageURL()
     {
         // If the image is empty for the user in db, then just pass the link

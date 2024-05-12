@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TweetLikeController;
 use App\Http\Controllers\TwitterCommentsController;
 use App\Http\Controllers\TwitterController;
 use App\Http\Controllers\UserController;
@@ -43,7 +44,7 @@ Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], f
 
     Route::delete('delete/{id}', [TwitterController::class, 'delete_tweet'])->name('delete'); // passing values in routes
 
-    Route::get('{id}', [TwitterController::class, 'show_tweet'])->name('show');
+    Route::get('{id}', [TwitterController::class, 'show_tweet'])->name('show')->withoutMiddleware('auth');
 
     Route::get('{id}/edit', [TwitterController::class, 'edit_tweet'])->name('edit');
 
@@ -63,10 +64,15 @@ Route::group(['prefix' => 'tweet/', 'as' => 'tweet.', 'middleware' => 'auth'], f
  * except() - function will wont include route for the mention method names
  *  
  */
-Route::resource('profile', ProfileController::class)->only('show', 'edit', 'update')->middleware('auth');
+Route::resource('profile', ProfileController::class)->only('show');
+Route::resource('profile', ProfileController::class)->only('edit', 'update')->middleware('auth');
 
 Route::get('my-profile', [ProfileController::class, 'my_account'])->middleware('auth')->name('my-profile');
 
 Route::post('users/{user_id}/follow', [FollowerController::class, 'follow'])->middleware('auth')->name('users.follow');
 
 Route::post('users/{user_id}/un-follow', [FollowerController::class, 'un_follow'])->middleware('auth')->name('users.un-follow');
+
+Route::post('tweet/{tweet_id}/like', [TweetLikeController::class, 'like'])->middleware('auth')->name('tweet.like');
+
+Route::post('tweet/{tweet_id}/unlike', [TweetLikeController::class, 'unlike'])->middleware('auth')->name('tweet.unlike');
