@@ -54,8 +54,9 @@
         <div class="d-flex justify-content-between">
             @include('tweet.like_tweet')
             <div>
-                <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $content_detail->created_at }} </span>
+                <span class="fs-6 fw-light text-muted" title="{{ $content_detail->created_at }}"> <span class="fas fa-clock"> </span>
+                {{-- laravel will automatically take the below fn as carbon obj --}}
+                    {{ $content_detail->created_at->diffForHumans() }} </span>
             </div>
         </div>
         @include('tweet.tweet_comments')

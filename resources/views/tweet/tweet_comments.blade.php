@@ -18,7 +18,7 @@
                 <div class="d-flex justify-content-between">
                     <h6 class="">{{ $content_detail->user->name }}
                     </h6>
-                    <small class="fs-6 fw-light text-muted"> {{ $tweet_comment->created_at }}</small>
+                    <small class="fs-6 fw-light text-muted"  title="{{ $tweet_comment->created_at }}"> {{ $tweet_comment->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="fs-6 mt-3 fw-light">
                     {{ $tweet_comment->comment }}

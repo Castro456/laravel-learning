@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetLikeController;
@@ -76,3 +77,10 @@ Route::post('users/{user_id}/un-follow', [FollowerController::class, 'un_follow'
 Route::post('tweet/{tweet_id}/like', [TweetLikeController::class, 'like'])->middleware('auth')->name('tweet.like');
 
 Route::post('tweet/{tweet_id}/unlike', [TweetLikeController::class, 'unlike'])->middleware('auth')->name('tweet.unlike');
+
+/**
+ * To create invokable controller
+ * 
+ * php artisan make:controller FeedController --invokable
+ */
+Route::get('/feed', FeedController::class)->name('feed')->middleware('auth'); //It is an invokable controller
