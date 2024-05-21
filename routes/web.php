@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
@@ -84,3 +85,5 @@ Route::post('tweet/{tweet_id}/unlike', [TweetLikeController::class, 'unlike'])->
  * php artisan make:controller FeedController --invokable
  */
 Route::get('/feed', FeedController::class)->name('feed')->middleware('auth'); //It is an invokable controller
+
+Route::get('/admin', [AdminDashController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.dashboard');
