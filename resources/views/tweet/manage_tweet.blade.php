@@ -19,7 +19,10 @@
             </div>
             <div class="d-flex">
                 <a href="{{ route('tweet.show', $content_detail->id) }}" class=""> View </a>
-                @if (auth()->id() === $content_detail->user_id)
+                {{-- 
+                    We are using gates to check permissions in blade files
+                    --}}
+                @can('tweet.edit', $content_detail)
                     <a class="mx-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
                     <form action="{{ route('tweet.delete', $content_detail->id) }}" method="post">
                         @csrf
@@ -27,7 +30,7 @@
                         @method('delete')
                         <button class="ms-1 btn btn-danger btn-sm mb-2"> X </button>
                     </form>
-                @endif
+                @endcan
             </div>
         </div>
     </div>
@@ -54,8 +57,9 @@
         <div class="d-flex justify-content-between">
             @include('tweet.like_tweet')
             <div>
-                <span class="fs-6 fw-light text-muted" title="{{ $content_detail->created_at }}"> <span class="fas fa-clock"> </span>
-                {{-- laravel will automatically take the below fn as carbon obj --}}
+                <span class="fs-6 fw-light text-muted" title="{{ $content_detail->created_at }}"> <span
+                        class="fas fa-clock"> </span>
+                    {{-- laravel will automatically take the below fn as carbon obj --}}
                     {{ $content_detail->created_at->diffForHumans() }} </span>
             </div>
         </div>

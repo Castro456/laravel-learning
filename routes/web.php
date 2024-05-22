@@ -86,4 +86,5 @@ Route::post('tweet/{tweet_id}/unlike', [TweetLikeController::class, 'unlike'])->
  */
 Route::get('/feed', FeedController::class)->name('feed')->middleware('auth'); //It is an invokable controller
 
-Route::get('/admin', [AdminDashController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.dashboard');
+//can is a middleware helper used to call gates. Here we are calling a gate name 'admin'
+Route::get('/admin', [AdminDashController::class, 'index'])->middleware(['auth', 'can:admin'])->name('admin.dashboard');

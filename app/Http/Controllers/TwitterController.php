@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TwitterCloneModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TwitterController extends Controller
 {
@@ -52,9 +53,12 @@ class TwitterController extends Controller
 
     public function delete_tweet(TwitterCloneModel $id)
     {
-        if (auth()->id() !== $id->user_id) {
-            abort(404);
-        }
+        // if (auth()->id() !== $id->user_id) {
+        //     abort(404);
+        // }
+
+        // The above validation can be simplified like this
+        $this->authorize('tweet.delete', $id);
 
         $id->delete(); //laravel will automatically know $id is a primary key for a table. $id should be same as in the route.
 
@@ -67,9 +71,7 @@ class TwitterController extends Controller
 
     public function edit_tweet(TwitterCloneModel $id)
     {
-        if (auth()->id() !== $id->user_id) {
-            abort(404);
-        }
+        $this->authorize('tweet.edit', $id);
 
         $editing = true;
 
@@ -84,9 +86,7 @@ class TwitterController extends Controller
 
     public function update_tweet(TwitterCloneModel $id)
     {
-        if (auth()->id() !== $id->user_id) {
-            abort(404);
-        }
+        $this->authorize('tweet.update', $id);
 
         $validated = request()->validate([
             'content' => 'required|min:5|max:100'
