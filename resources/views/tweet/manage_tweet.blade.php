@@ -21,8 +21,10 @@
                 <a href="{{ route('tweet.show', $content_detail->id) }}" class=""> View </a>
                 {{-- 
                     We are using gates to check permissions in blade files
+
+                    Then we changed to policy to check permissions in blade files
                     --}}
-                @can('tweet.edit', $content_detail)
+                @can('update', $content_detail)
                     <a class="mx-2" href="{{ route('tweet.edit', $content_detail->id) }}"> Edit </a>
                     <form action="{{ route('tweet.delete', $content_detail->id) }}" method="post">
                         @csrf

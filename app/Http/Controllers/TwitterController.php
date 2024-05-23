@@ -57,8 +57,11 @@ class TwitterController extends Controller
         //     abort(404);
         // }
 
-        // The above validation can be simplified like this
-        $this->authorize('tweet.delete', $id);
+        // The above validation can be simplified like this using gate
+        // $this->authorize('tweet.delete', $id);
+
+        //Policy validation
+        $this->authorize('delete', $id);
 
         $id->delete(); //laravel will automatically know $id is a primary key for a table. $id should be same as in the route.
 
@@ -71,7 +74,8 @@ class TwitterController extends Controller
 
     public function edit_tweet(TwitterCloneModel $id)
     {
-        $this->authorize('tweet.edit', $id);
+        // $this->authorize('tweet.edit', $id);
+        $this->authorize('update', $id);
 
         $editing = true;
 
@@ -86,7 +90,8 @@ class TwitterController extends Controller
 
     public function update_tweet(TwitterCloneModel $id)
     {
-        $this->authorize('tweet.update', $id);
+        // $this->authorize('tweet.update', $id);
+        $this->authorize('update', $id);
 
         $validated = request()->validate([
             'content' => 'required|min:5|max:100'
