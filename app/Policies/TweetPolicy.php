@@ -15,7 +15,10 @@ class TweetPolicy
      */
     public function update(User $user, TwitterCloneModel $twitterCloneModel): bool
     {
-        return ($user->is_admin || $user->id === $twitterCloneModel->user_id);
+        // return ($user->is_admin || $user->id === $twitterCloneModel->user_id);
+
+        //The above can be written like this
+        return ($user->is_admin || $user->is($twitterCloneModel->user));
     }
 
     /**

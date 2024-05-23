@@ -45,15 +45,11 @@ class ProfileController extends Controller
      */
     public function edit(User $profile)
     {
-        if(auth()->id() === $profile->id) {
-            $profile_editing = true; //Allowing to edit in the same show page
-            $twitter_content_details = $profile->tweets()->paginate(5);
-    
-            return view('users.profile.profile_edit', compact('profile', 'profile_editing', 'twitter_content_details'));
-        }
-        else {
-            abort(404);
-        }
+        $this->authorize('update', $profile);
+
+        $profile_editing = true; //Allowing to edit in the same show page
+        $twitter_content_details = $profile->tweets()->paginate(5);
+        return view('users.profile.profile_edit', compact('profile', 'profile_editing', 'twitter_content_details'));
     }
 
     /**
@@ -61,6 +57,8 @@ class ProfileController extends Controller
      */
     public function update(User $profile)
     {
+        $this->authorize('update', $profile);
+
         $validated = request()->validate([
             'name' => 'required|min:5|max:40',
             'bio' => 'nullable|min:1|max:255',

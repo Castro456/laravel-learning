@@ -11,11 +11,10 @@
                  </div>
              </div>
              <div>
-                 @auth
-                     @if (Auth::id() === $profile->id)
-                         <a href="{{ route('profile.edit', $profile->id) }}">Edit</a>
-                     @endif
-                 @endauth
+                {{-- can middleware also checks for auth --}}
+                @can('update', $profile)
+                    <a href="{{ route('profile.edit', $profile->id) }}">Edit</a>
+                @endcan
              </div>
          </div>
          <div class="px-2 mt-4">
@@ -27,6 +26,7 @@
              </p>
              @include('users.profile.profile_stats')
              @auth
+                {{-- Or we can write the below validation as  (Auth::user()->isNot($profile)) --}}
                  @if (Auth::id() !== $profile->id)
                      <div class="mt-3">
                         {{-- If logged in user follows a user show un-follow button or else show follow button --}}
