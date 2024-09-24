@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TwitterCloneModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // create a controller using this command 
 // php artisan make:controller DashboardController
